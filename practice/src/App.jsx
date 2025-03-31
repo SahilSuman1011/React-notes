@@ -1,30 +1,46 @@
 import { useEffect, useState } from "react";
+
 function App() {
 
-  const[count, setCount] = useState(1);
-  
-  function increaseCount() {
-    setCount(currentValue => currentValue + 1);
-  }
+  const[currentTab, setCurrentTab] = useState("1");
+  const[tabData, setTabData] = useState({});
+  const[loading, setLoading] = useState(true);
 
   useEffect(function() {
-    console.log("above setInterval")
-    setInterval(increaseCount, 1000);
-  }, [])
+    setLoading(true);
+    // Fetch data from the API
+    fetch("https://jsonplaceholder.typicode.com/todos/" + currentTab)
+    .then(async res => {
+      const json = await res.json();
+      setTabData(json);
+      setLoading(false);
+    });
 
-  // [] this is called dependency array which is
-  // used to control the execution of useEffect hook.
+  }, [currentTab])
 
-  // This effect will run on mount, because array is empty.
+  return <div>
+    <button onClick={function() {
+      setCurrentTab("1")
+    }} style={{color: currentTab == "1" ? 
+      "red" : "black"}}>Todo #1</button>
 
-  return (
-    <div>
-       {count}
-      </div>
-  );
+    <button onClick={function() {
+      setCurrentTab("2")
+    }} style={{color: currentTab == "2" ? 
+      "red" : "black"}}>Todo #2</button>
+
+    <button onClick={function() {
+      setCurrentTab("3")
+    }} style={{color: currentTab == "3" ? 
+      "red" : "black"}}>Todo #3</button>
+
+    <button onClick={function() {
+      setCurrentTab("4")
+    }} style={{color: currentTab == "4" ? 
+      "red" : "black"}}>Todo #4</button>
+<br/>
+      {loading ? "Loading..." : tabData.title}
+    </div> 
 }
 
-export default App;
-
-//useEffect Hook : helps to perform side effects in function components,
-// code runs only on mount
+export default App
