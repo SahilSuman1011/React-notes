@@ -168,4 +168,87 @@
 
 // export default App
 
+// # state management -> context api 
+
+// Rolling up the state -> unoptimal renders
+// you might find multiple components needs access to the
+// same state, instead of duplicating the state in each component,
+//// you can lift the state up to the LCA (lowest common ancestor)
+// allowing the common ancestor to manage it.
+
+// prop drilling : 
+
+// export const Parent = () => {
+
+//   return (
+//     <section>
+//       <h1>Component A</h1>
+//       <ChildComponent data = "tata"/>
+//     </section>
+//   );
+
+// };
+
+// const ChildComponent = (props) => {
+
+//   return (
+//     <section>
+//       <h1>Component B</h1>
+//       <GrandChildComponent data = {props.data}/>
+//     </section>
+//   );
+// }
+
+// const GrandChildComponent = (props) => {
+
+//   return (
+//     <section>
+//       <h1>Component C</h1>
+//       <GrandGrandChildComponent data = {props.data}/>
+//     </section>
+//   );
+// };
+
+// const GrandGrandChildComponent = (props) => {
+
+//   return (
+//     <section>
+//       <h1>Component B{props.data}</h1>
+     
+//     </section>
+//   );
+// };
+
+// this prop drilling can be fixed by context API : 
+// Context API : 
+// import { createContext } from "react";
+
+// export const BioContext = createContext();
+
+// export const BioProvider = () => {
+
+//   const myName = "ram"
+//   return <BioContext.Provider value = {myName}>
+
+//   </BioContext.Provider>
+//
+
+// higher order functions : aisa fnc jo accept krle el aur fnc
+// return krde ekaur func.
+
+// eg. var arr = [1,2,3,4,5]
+// arr.forEach(function(){})
+
+// constructor function : normal func jismein this ka istemal ho;
+// and fnc ko call krke waqt new keyword ka use hota hai;
+//function Biscuit(){
+//   this.name = "parle";
+//   this.width = 12;
+//   this.height = 10;
+//   this.color = "red"; 
+// }
+
+// var bis1 = new biscuit();
+// var bis2 = new biscuit();
+// console.log(bis1);
 
